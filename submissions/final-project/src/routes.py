@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from .model import Account
 from . import db
+import logging
 
 views = Blueprint("views", __name__)
 
@@ -23,9 +24,7 @@ def store():
     # Create new Account
     newAccount = Account(
         website=website, 
-        email=email, 
-        password=password
-    )
+        email=email, password=password)
     db.session.add(newAccount)
     db.session.commit()
 

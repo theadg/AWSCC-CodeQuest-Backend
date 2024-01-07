@@ -46,3 +46,7 @@ class ComplexCalculator(BasicCalculator):
     
 basic = BasicCalculator()
 complex = ComplexCalculator()
+
+list = [1000,5000,200,500]
+print(basic.product(list))
+print(complex.product(list))

@@ -28,13 +28,31 @@
         {% for book in books %}
         <li data-id={{book.id}} data-title={{book.title}} data-author={{book.author}} data-published-year={{book.published_year}}>
             {{book.id}} | {{ book.title}} written by {{ book.author}} ({{book.published_year}})
-            <a href="/updat"><button class="update-btn">Update</button></a>
-            <button class="delete-btn">Delete</button>
+            <a href="/{{book.id}}">
+                <button class="update-btn">Update</button>
+            </a>
+            <form action="/delete/{{book.id}}" method="POST">
+                <button class="delete-btn">Delete</button>
+            </a>
         </li>
         {% endfor %}
     </ul>
 
-    
+    <h1>Update Book</h1>
+    <div>
+        <label for="updateTitle">Title</label>
+        <input type="text" id="updateTitle" name="title">
+    </div>
+    <div>
+        <label for="updateAuthor">Author</label>
+        <input type="text" id="updateAuthor" name="author">
+    </div>
+    <div>
+        <label for="updatePublishedYear">Published Year</label>
+        <input type="number" max="2023" id="updatePublishedYear" name="published_year">
+    </div>
+    <button type="submit" id="updateBookBtn">Update</button>
+
 
     <script type="text/javascript" src="{{ url_for('static', filename='index.js')}}"></script>
 </body>

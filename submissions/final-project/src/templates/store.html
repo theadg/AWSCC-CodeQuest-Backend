@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %} Accounts {% endblock %}
+{% block content %}
+        <form action="/add" method="POST" class="container p-5">
+            <h1>Add Account</h1>
+            <div class="form-group">
+                <label for="addWebsite">Website</label>
+                <input class="form-control" type="text" id="addWebsite" name="website" value="">
+            </div>
+            <div class="form-group">
+                <label for="addEmail">Email</label>
+                <input class="form-control" type="text" id="addEmail" name="email">
+            </div>
+            <div class="form-group">
+                <label for="addPassword">Password</label>
+                <input class="form-control" type="text" id="addPassword" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Account</button>
+        </form>
+{% endblock %}
+

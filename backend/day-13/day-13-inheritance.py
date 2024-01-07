@@ -8,10 +8,16 @@ class BasicCalculator:
         return _sum
 
 class ComplexCalculator(BasicCalculator):
-    pass
-
+    def power(self, base, exponent):
+        return pow(base, exponent)
+    
+    def abs(self, number):
+        return abs(number)
+        
 basic = BasicCalculator()
 complex = ComplexCalculator()
 
-print(basic.sum([1, 2, 3]))
-print(complex.sum([1, 2, 3]))
+# print(basic.sum([1, 2, 3]))
+print(complex.power(2,5))
+print(complex.abs(-100))
+

@@ -1,13 +1,15 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 from .model import Book
 from . import db
+import logging
+
 
 views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
     books = Book.query.all()
-    return render_template("home.html", books=books)
+    return render_template('home.html', books=books)
 
 @views.route("/add", methods=["POST"])
 def add_book():
@@ -19,28 +21,29 @@ def add_book():
     db.session.commit()
     return redirect(url_for('views.home'))
 
-@views.route("/<id>", methods = ["GET"])
+
+@views.route("/<int:id>", methods=["GET"])
 def show(id):
     book = Book.query.get(id)
-    return render_template("update", book=book)
+    return render_template('update.html', book=book)
 
-@views.route("/update/<id>", methods=["PATCH"])
+@views.route("/update/<id>", methods=["POST"])
 def update_book(id):
-    
     # get data from form
-    author = request.json.get('author')
-    title = request.json.get('title')
-    published_year = request.json.get('publishedYear')
-    
+    author = request.form.get('author')
+    title = request.form.get('title')
+    published_year = request.form.get('published_year')
+
     # updates
     book = Book.query.get(id)
     book.author = author
     book.title = title
     book.published_year = published_year
     db.session.commit()
-    return ({"result": "success"})
+    return redirect(url_for('views.home'))
 
-@views.route("/delete/<id>", methods=["DELETE"])
+
+@views.route("/delete/<id>", methods=["POST"])
 def delete_book(id):
     book = Book.query.get(id)
     if book:
@@ -48,4 +51,3 @@ def delete_book(id):
         db.session.commit()
         return ({"results": "success"})
     return ({"results": "error"})
-    

@@ -1,0 +1,16 @@
+<h1>Update Book</h1>
+<form action="/update/{{book.id}}" method="POST">
+    <div>
+    <label for="updateTitle">Title</label>
+        <input type="text" id="updateTitle" name="title" value="{{ book.title }}">
+    </div>
+    <div>
+        <label for="updateAuthor">Author</label>
+        <input type="text" id="updateAuthor" name="author" value="{{ book.author }}">
+    </div>
+    <div>
+        <label for="updatePublishedYear">Published Year</label>
+        <input type="number" max="2023" id="updatePublishedYear" name="published_year" value="{{ book.published_year }}">
+    </div>
+    <button type="submit">Update</button>
+</form>

@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from .model import Account
 from . import db
-import logging
 
 views = Blueprint("views", __name__)
 
@@ -24,10 +23,13 @@ def store():
     # Create new Account
     newAccount = Account(
         website=website, 
-        email=email, password=password)
+        email=email, 
+        password=password
+    )
     db.session.add(newAccount)
     db.session.commit()
 
+    flash('Successfully added account')
     return redirect(url_for('views.index'))
 
 @views.route("/update/<int:id>", methods=['GET', 'POST'])
@@ -48,14 +50,18 @@ def update(id):
     account.email = email
     account.password = password
     db.session.commit()
+    
+    flash('Successfully updated account')
+    
     return redirect(url_for('views.index'))
 
 @views.route("/delete/<int:id>", methods=["POST"])
 def delete(id):
-    book = Account.query.get(id)
-    if book:
-        db.session.delete(book)
+    account = Account.query.get(id)
+    if account:
+        db.session.delete(account)
         db.session.commit()
         return redirect(url_for('views.index'))
     
+    flash('Successfully deleted account')
     return ({"results": "error"})
